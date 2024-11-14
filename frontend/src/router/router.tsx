@@ -1,5 +1,6 @@
 import App from '@/App';
 import { MainLayout } from '@/layouts/MainLayout';
+import { AlbumPage } from '@/pages/AlbumPage';
 import { AuthCallbackPage } from '@/pages/AuthCallbackPage';
 import { ChatPage } from '@/pages/ChatPage';
 import { HomePage } from '@/pages/HomePage';
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
           {
             path: 'chat',
             element: <ChatPage />,
+          },
+          {
+            path: 'album/:albumId',
+            element: <AlbumPage />,
           },
         ],
       },

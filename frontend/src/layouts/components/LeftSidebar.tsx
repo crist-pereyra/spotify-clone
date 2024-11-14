@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 export const LeftSidebar = () => {
   const isLoading = useMusicStore((state) => state.isLoading);
-  const songs = useMusicStore((state) => state.songs);
+  // const songs = useMusicStore((state) => state.songs);
   const albums = useMusicStore((state) => state.albums);
   const fetchAlbums = useMusicStore((state) => state.fetchAlbums);
   useEffect(() => {
