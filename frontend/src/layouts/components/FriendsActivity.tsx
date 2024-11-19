@@ -10,7 +10,6 @@ export const FriendsActivity = () => {
   const isLoading = useChatStore((state) => state.isLoading);
   const fetchUsers = useChatStore((state) => state.fetchUsers);
   const { user } = useUser();
-  console.log('users', users);
   useEffect(() => {
     if (user) fetchUsers();
   }, [fetchUsers, user]);

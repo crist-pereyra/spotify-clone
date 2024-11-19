@@ -8,11 +8,13 @@ function App() {
   const { getToken } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const updateApiToken = useAuthStore((state) => state.updateApiToken);
+  const checkAdminStatus = useAuthStore((state) => state.checkAdminStatus);
   useEffect(() => {
     const initAuth = async () => {
       try {
         const token = await getToken();
         updateApiToken(token);
+        if (token) await checkAdminStatus();
       } catch (error) {
         updateApiToken(null);
         console.error('Error getting token', error);
