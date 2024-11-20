@@ -1,5 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { Toaster } from 'react-hot-toast';
 import './index.css';
 import { ClerkProvider } from '@clerk/clerk-react';
 import { RouterProvider } from 'react-router-dom';
@@ -15,6 +16,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl='/'>
       <RouterProvider router={router} />
+      <Toaster />
     </ClerkProvider>
   </StrictMode>
 );

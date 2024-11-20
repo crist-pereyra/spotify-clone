@@ -1,5 +1,6 @@
 import App from '@/App';
 import { MainLayout } from '@/layouts/MainLayout';
+import { AdminPage } from '@/pages/AdminPage';
 import { AlbumPage } from '@/pages/AlbumPage';
 import { AuthCallbackPage } from '@/pages/AuthCallbackPage';
 import { ChatPage } from '@/pages/ChatPage';
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
             element: <AlbumPage />,
           },
         ],
+      },
+      {
+        path: 'admin',
+        element: <AdminPage />,
       },
       {
         path: 'auth-callback',
