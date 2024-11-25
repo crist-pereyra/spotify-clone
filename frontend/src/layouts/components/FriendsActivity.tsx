@@ -9,6 +9,7 @@ export const FriendsActivity = () => {
   const users = useChatStore((state) => state.users);
   const isLoading = useChatStore((state) => state.isLoading);
   const fetchUsers = useChatStore((state) => state.fetchUsers);
+  const onlineUsers = useChatStore((state) => state.onlineUsers);
   const { user } = useUser();
   useEffect(() => {
     if (user) fetchUsers();
@@ -37,7 +38,7 @@ export const FriendsActivity = () => {
                     <AvatarFallback>{user.fullName[0]}</AvatarFallback>
                   </Avatar>
                   <div
-                    className='absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-zinc-900 bg-zinc-500'
+                    className={`absolute bottom-0 right-0 w-3 h-3 order-2 border-zinc-900 rounded-full ${onlineUsers.has(user.clerkId) ? 'bg-green-500' : 'bg-zinc-500'}`}
                     aria-hidden='true'
                   />
                 </div>
