@@ -7,14 +7,15 @@ import { useEffect } from 'react';
 
 export const FriendsActivity = () => {
   const users = useChatStore((state) => state.users);
-  const isLoading = useChatStore((state) => state.isLoading);
+  // const isLoading = useChatStore((state) => state.isLoading);
   const fetchUsers = useChatStore((state) => state.fetchUsers);
   const onlineUsers = useChatStore((state) => state.onlineUsers);
+  const userActivities = useChatStore((state) => state.userActivities);
   const { user } = useUser();
   useEffect(() => {
     if (user) fetchUsers();
   }, [fetchUsers, user]);
-  const isPlaying = false;
+
   return (
     <div className='h-full bg-zinc-900 rounded-lg flex flex-col'>
       <div className='p-4 flex justify-center items-center border-b border-zinc-900'>
@@ -26,47 +27,51 @@ export const FriendsActivity = () => {
       {!user && <LoginPrompt />}
       <ScrollArea className='flex-1'>
         <div className='p-4 space-y-4'>
-          {users.map((user) => (
-            <div
-              key={user._id}
-              className='cursor-pointer hover:bg-zinc-800/50 p-3 rounded-md transition-colors group'
-            >
-              <div className='flex items-center gap-3'>
-                <div className='relative'>
-                  <Avatar className='size-10 border border-zinc-800'>
-                    <AvatarImage src={user.imageUrl} alt={user.fullName} />
-                    <AvatarFallback>{user.fullName[0]}</AvatarFallback>
-                  </Avatar>
-                  <div
-                    className={`absolute bottom-0 right-0 w-3 h-3 order-2 border-zinc-900 rounded-full ${onlineUsers.has(user.clerkId) ? 'bg-green-500' : 'bg-zinc-500'}`}
-                    aria-hidden='true'
-                  />
-                </div>
-                <div className='flex-1 min-w-0'>
-                  <div className='flex items-center gap-3'>
-                    <span className='font-medium text-sm text-white'>
-                      {user.fullName}
-                    </span>
-                    {isPlaying && (
-                      <Music className='size-3.5 text-emerald-400 shrink-0' />
+          {users.map((user) => {
+            const activity = userActivities.get(user.clerkId);
+            const isPlaying = activity && activity !== 'Idle';
+            return (
+              <div
+                key={user._id}
+                className='cursor-pointer hover:bg-zinc-800/50 p-3 rounded-md transition-colors group'
+              >
+                <div className='flex items-center gap-3'>
+                  <div className='relative'>
+                    <Avatar className='size-10 border border-zinc-800'>
+                      <AvatarImage src={user.imageUrl} alt={user.fullName} />
+                      <AvatarFallback>{user.fullName[0]}</AvatarFallback>
+                    </Avatar>
+                    <div
+                      className={`absolute bottom-0 right-0 w-3 h-3 order-2 border-zinc-900 rounded-full ${onlineUsers.has(user.clerkId) ? 'bg-green-500' : 'bg-zinc-500'}`}
+                      aria-hidden='true'
+                    />
+                  </div>
+                  <div className='flex-1 min-w-0'>
+                    <div className='flex items-center gap-3'>
+                      <span className='font-medium text-sm text-white'>
+                        {user.fullName}
+                      </span>
+                      {isPlaying && (
+                        <Music className='size-3.5 text-emerald-400 shrink-0' />
+                      )}
+                    </div>
+                    {isPlaying ? (
+                      <div className='mt-1 flex flex-col'>
+                        <span className='mt-1 text-sm text-white font-medium truncate'>
+                          {activity.replace('Playing ', '').split(' by ')[0]}
+                        </span>
+                        <span className='text-xs text-zinc-400 truncate'>
+                          {activity.split(' by ')[1]}
+                        </span>
+                      </div>
+                    ) : (
+                      <span className='mt-1 text-xs text-zinc-400'>Idle</span>
                     )}
                   </div>
-                  {isPlaying ? (
-                    <div className='mt-1 flex flex-col'>
-                      <span className='mt-1 text-sm text-white font-medium truncate'>
-                        Cardigan
-                      </span>
-                      <span className='text-xs text-zinc-400 truncate'>
-                        by Lorem Ipsum
-                      </span>
-                    </div>
-                  ) : (
-                    <span className='mt-1 text-xs text-zinc-400'>Idle</span>
-                  )}
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </ScrollArea>
     </div>
