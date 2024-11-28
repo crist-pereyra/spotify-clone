@@ -5,6 +5,7 @@ import { AlbumPage } from '@/pages/AlbumPage';
 import { AuthCallbackPage } from '@/pages/AuthCallbackPage';
 import { ChatPage } from '@/pages/ChatPage';
 import { HomePage } from '@/pages/HomePage';
+import { NotFoundPage } from '@/pages/NotFoundPage';
 import { AuthenticateWithRedirectCallback } from '@clerk/clerk-react';
 import { createBrowserRouter } from 'react-router-dom';
 
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
           {
             path: 'album/:albumId',
             element: <AlbumPage />,
+          },
+          {
+            path: '*',
+            element: <NotFoundPage />,
           },
         ],
       },
