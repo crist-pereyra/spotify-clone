@@ -3,7 +3,9 @@ import dotenv from 'dotenv';
 import { clerkMiddleware } from '@clerk/express';
 import fileUpload from 'express-fileupload';
 import cors from 'cors';
+import cron from 'node-cron';
 import path from 'path';
+import fs from 'fs';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import adminRoutes from './routes/admin.route.js';
@@ -41,6 +43,22 @@ app.use(
     limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
   })
 );
+const tempDir = path.join(process.cwd(), 'tmp');
+// Cron jobs
+// delete those files in every hour
+cron.schedule('0 * * * *', () => {
+  if (fs.existsSync(tempDir)) {
+    fs.readdirSync(tempDir, (err, files) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      for (const file of files) {
+        fs.unlink(path.join(tempDir, file), (err) => {});
+      }
+    });
+  }
+});
 
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
@@ -49,6 +67,14 @@ app.use('/api/songs', songRoutes);
 app.use('/api/albums', albumRoutes);
 app.use('/api/albums', albumRoutes);
 app.use('/api/stats', statRoutes);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../frontend', 'dist', 'index.html'));
+  });
+}
 
 app.use((err, req, res, next) => {
   console.error(error);

@@ -4,9 +4,21 @@ import { Topbar } from '@/components/Topbar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useMusicStore } from '@/store/music.store';
 import { usePlayerStore } from '@/store/player.store';
+import { useUser } from '@clerk/clerk-react';
 import { useEffect } from 'react';
 
 export const HomePage = () => {
+  const { user } = useUser();
+  const getGreeting = () => {
+    const currentHour = new Date().getHours();
+    if (currentHour < 12) {
+      return '☀️ Good Morning';
+    } else if (currentHour < 18) {
+      return '🌤️ Good Afternoon';
+    } else {
+      return '🌕 Good Evening';
+    }
+  };
   const fetchFeaturedSongs = useMusicStore((state) => state.fetchFeaturedSongs);
   const fetchMadeForYouSongs = useMusicStore(
     (state) => state.fetchMadeForYouSongs
@@ -34,12 +46,14 @@ export const HomePage = () => {
     }
   }, [initializeQueue, madeForYouSongs, featuredSongs, trendingSongs]);
   return (
-    <main className='rounded-md overflow-hidden h-full bg-gradient-to-b from-zinc-800 to-zinc-900'>
+    <main className='rounded-md overflow-hidden h-full bg-gradient-to-b from-[#03150A] via-[#03150A] to-zinc-900'>
       <Topbar />
       <ScrollArea className='h-[calc(100vh-180px)]'>
         <div className='p-4 sm:p-6'>
-          <h1 className='text-2xl sm:text-3xl font-bold mb-6'>
-            Good Afternoon
+          <h1 className='text-white text-2xl font-semibold mb-6'>
+            {getGreeting()}
+            {user && ', '}
+            {user?.firstName}
           </h1>
           <FeaturedSection />
           <div className='space-y-8'>

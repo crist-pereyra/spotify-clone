@@ -17,7 +17,7 @@ export const FriendsActivity = () => {
   }, [fetchUsers, user]);
 
   return (
-    <div className='h-full bg-zinc-900 rounded-lg flex flex-col'>
+    <div className='h-full bg-gradient-to-t from-[#010A05] to-zinc-900 rounded-lg flex flex-col'>
       <div className='p-4 flex justify-center items-center border-b border-zinc-900'>
         <div className='flex items-center gap-2'>
           <Users className='size-5 shrink-0' />

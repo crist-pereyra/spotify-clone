@@ -19,7 +19,8 @@ interface ChatState {
   fetchMessages: (userId: string) => Promise<void>;
   setSelectedUser: (user: User | null) => void;
 }
-const baseUrl = 'http://localhost:5000';
+const baseUrl =
+  import.meta.env.MODE === 'development' ? 'http://localhost:5000' : '/';
 const socket = io(baseUrl, {
   autoConnect: false, //only connect if user is authenticated
   withCredentials: true,

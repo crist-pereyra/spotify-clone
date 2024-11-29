@@ -15,6 +15,7 @@ export interface Album {
   title: string;
   artist: string;
   imageUrl: string;
+  color: string;
   releaseYear: number;
   songs: Song[];
 }

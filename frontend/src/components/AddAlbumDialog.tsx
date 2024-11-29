@@ -14,6 +14,7 @@ import {
 import { Button } from './ui/button';
 import { Plus, Upload } from 'lucide-react';
 import { Input } from './ui/input';
+import { ColorPicker } from './ui/color-picker';
 
 export const AddAlbumDialog = () => {
   const [isAlbumDialogOpen, setIsAlbumDialogOpen] = useState(false);
@@ -21,6 +22,7 @@ export const AddAlbumDialog = () => {
   const [newAlbum, setNewAlbum] = useState({
     title: '',
     artist: '',
+    color: '',
     releaseYear: new Date().getFullYear(),
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -45,6 +47,7 @@ export const AddAlbumDialog = () => {
       formData.append('artist', newAlbum.artist);
       formData.append('releaseYear', newAlbum.releaseYear.toString());
       formData.append('imageFile', imageFile);
+      formData.append('color', newAlbum.color);
       await axiosInstance.post('/admin/albums', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -53,6 +56,7 @@ export const AddAlbumDialog = () => {
       setNewAlbum({
         title: '',
         artist: '',
+        color: '',
         releaseYear: new Date().getFullYear(),
       });
       setImageFile(null);
@@ -89,6 +93,10 @@ export const AddAlbumDialog = () => {
           <div className='text-center'>
             {imageFile ? (
               <div className='space-y-2'>
+                <img
+                  src={URL.createObjectURL(imageFile)}
+                  className='w-20 h-auto object-cover rounded-lg mx-auto'
+                />
                 <div className='text-sm text-emerald-500'>Image selected:</div>
                 <div className='text-xs text-zinc-400'>
                   {imageFile.name.slice(0, 20)}
@@ -149,6 +157,15 @@ export const AddAlbumDialog = () => {
             }
             placeholder='Enter release year'
             className='bg-zinc-800 border-zinc-700'
+          />
+        </div>
+        <div className='space-y-2'>
+          <label className='text-sm font-medium'>Color</label>
+          <ColorPicker
+            onChange={(v) => {
+              setNewAlbum({ ...newAlbum, color: v });
+            }}
+            value={newAlbum.color}
           />
         </div>
         <DialogFooter>

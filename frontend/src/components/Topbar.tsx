@@ -9,10 +9,10 @@ import { buttonVariants } from './ui/button';
 export const Topbar = () => {
   const isAdmin = useAuthStore((state) => state.isAdmin);
   return (
-    <div className='flex items-center justify-between p-4 sticky top-0 bg-zinc-900/75 backdrop-blur-md z-10'>
+    <div className='flex items-center justify-between p-4 sticky top-0 bg-[#062B13] backdrop-blur-md z-10'>
       <div className='flex gap-2 items-center'>
         <img src='/spotify.png' className='size-8' alt='Spotify' />
-        Spotify
+        <span className='font-semibold'>Spotify</span>
       </div>
       <div className='flex items-center gap-4'>
         {isAdmin && (
@@ -20,7 +20,7 @@ export const Topbar = () => {
             to='/admin'
             className={cn(
               buttonVariants({ variant: 'outline' }),
-              'border-transparent'
+              'border-transparent bg-[#041F0E] hover:bg-[#24342A] font-semibold'
             )}
           >
             <LayoutDashboardIcon className='size-4 mr-2' />

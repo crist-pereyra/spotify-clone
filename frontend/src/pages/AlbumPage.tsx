@@ -52,8 +52,11 @@ export const AlbumPage = () => {
       <ScrollArea className='h-full rounded-md'>
         <div className='relative min-h-full'>
           <div
-            className='absolute inset-0 bg-gradient-to-b from-[#5038a0]/80 via-zinc-900/80 to-zinc-900 pointer-events-none'
+            className={`absolute inset-0 pointer-events-none`}
             aria-hidden='true'
+            style={{
+              background: `linear-gradient(to bottom, ${currentAlbum?.color || '#5038a0'}80, rgba(24, 24, 27, 0.8) 50%, #18181b)`,
+            }}
           />
           <div className='relative z-10'>
             <div className='flex p-6 gap-6 pb-8'>
@@ -95,9 +98,9 @@ export const AlbumPage = () => {
             <Table className='bg-black/20 backdrop-blur-sm'>
               <TableHeader>
                 <TableRow className='grid grid-cols-[16px_4fr_2fr_1fr] gap-4 px-10 py-2 text-sm text-zinc-400 border-b border-white/5'>
-                  <TableHead>#</TableHead>
-                  <TableHead>Title</TableHead>
-                  <TableHead>Released Date</TableHead>
+                  <TableHead className='font-bold'>#</TableHead>
+                  <TableHead className='font-bold'>Title</TableHead>
+                  <TableHead className='font-bold'>Released Date</TableHead>
                   <TableHead>
                     <Clock className='size-4' />
                   </TableHead>

@@ -2,6 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'CircularSpotifyText';
+  src: url('./fonts/CircularSpotifyText-Light.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CircularSpotifyText';
+  src: url('./fonts/CircularSpotifyText-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CircularSpotifyText';
+  src: url('./fonts/CircularSpotifyText-Light.otf') format('opentype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+body {
+  font-family: 'CircularSpotifyText', sans-serif; /* Aplica la fuente globalmente */
+  font-weight: normal; /* Predeterminado: peso normal */
+  font-style: normal; /* Predeterminado: no cursiva */
+  line-height: 1.6; /* Altura de línea sugerida */
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

@@ -28,7 +28,7 @@ export const ChatPage = () => {
     if (selectedUser) fetchMessages(selectedUser.clerkId);
   }, [selectedUser, fetchMessages]);
   return (
-    <main className='h-full rounded-lg bg-gradient-to-b from-zinc-800 to-zinc-900 overflow-hidden'>
+    <main className='h-full rounded-lg bg-gradient-to-b from-[#03150A] via-zinc-900 to-zinc-900 overflow-hidden'>
       <Topbar />
       <div className='grid lg:grid-cols-[300px_1fr] grid-cols-[80px_1fr] h-[calc(100vh-180px)]'>
         <UserList />
