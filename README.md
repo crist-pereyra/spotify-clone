@@ -97,12 +97,16 @@ spotify-clone/
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/yourusername/spotify-clone.git
+   git clone https://github.com/crist-pereyra/spotify-clone.git
    cd spotify-clone
    ```
 
 2. Install dependencies:
    ```sh
+   cd backend
+   npm install
+   cd ..
+   cd frontend
    npm install
    ```
 
